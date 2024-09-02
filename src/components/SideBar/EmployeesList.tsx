@@ -39,7 +39,7 @@ export default function EmployeesList({ font }: { font: string }) {
       </button>
       {isMenuOpened && (
         <>
-          <Link href="/" className="flex items-center gap-x-4">
+          <Link href="/profile" className="flex items-center gap-x-4">
             <MdPerson size={24} className="text-gray-300" />
             <p className={`${font} font-light text-gray-300 hidden xl:block`}>
               Profile
