@@ -42,7 +42,7 @@ export default function SideBar({ user }: { user: IProfileData | undefined }) {
             </Link>
           ) : (
             <>
-              <Link href="/" className="flex items-center gap-x-4">
+              <Link href="#" className="flex items-center gap-x-4">
                 <Image src={DashboardIcon} alt="dashboard" />
                 <p
                   className={`${lexendClass} font-medium text-stone-100 hidden xl:block`}
