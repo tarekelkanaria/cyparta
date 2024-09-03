@@ -8,9 +8,13 @@ import { FaUsersLine } from "react-icons/fa6";
 import { MdPerson } from "react-icons/md";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { RiFileList3Line } from "react-icons/ri";
+import { usePathname } from "next/navigation";
 
 export default function EmployeesList({ font }: { font: string }) {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
+  const pathname = usePathname();
+  const segments = pathname.split("/");
+  const lastPathSegment = segments.pop();
   return (
     <>
       <button
@@ -39,9 +43,41 @@ export default function EmployeesList({ font }: { font: string }) {
       </button>
       {isMenuOpened && (
         <>
+          <Link href="/" className="flex items-center gap-x-4">
+            <FaRegCalendarCheck
+              size={24}
+              className={
+                lastPathSegment === "profile"
+                  ? "text-stone-100"
+                  : "text-gray-300"
+              }
+            />
+            <p
+              className={`${font} font-light ${
+                lastPathSegment === "profile"
+                  ? "text-stone-100"
+                  : "text-gray-300"
+              } hidden xl:block`}
+            >
+              Login
+            </p>
+          </Link>
           <Link href="/profile" className="flex items-center gap-x-4">
-            <MdPerson size={24} className="text-gray-300" />
-            <p className={`${font} font-light text-gray-300 hidden xl:block`}>
+            <MdPerson
+              size={24}
+              className={
+                lastPathSegment === "profile"
+                  ? "text-gray-300"
+                  : "text-stone-100"
+              }
+            />
+            <p
+              className={`${font} font-light ${
+                lastPathSegment === "profile"
+                  ? "text-gray-300"
+                  : "text-stone-100"
+              } hidden xl:block`}
+            >
               Profile
             </p>
           </Link>

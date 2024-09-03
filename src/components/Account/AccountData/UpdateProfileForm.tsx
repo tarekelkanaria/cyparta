@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { useIsEditing } from "src/providers/EditingProvider";
+
 export default function UpdateProfileForm({
   font,
   firstName,
@@ -13,8 +16,21 @@ export default function UpdateProfileForm({
   phone: string;
   email: string;
 }) {
+  const { isEditing, toggleEditing } = useIsEditing();
+  const [userData, setUserData] = useState({
+    firstName,
+    lastName,
+    phone,
+    email,
+  });
   return (
-    <form className="grid grid-cols-2 md:grid-cols-4 gap-y-2 mb-8">
+    <form
+      className="grid grid-cols-2 md:grid-cols-4 gap-y-2 mb-8"
+      onSubmit={(e) => {
+        e.preventDefault();
+        toggleEditing();
+      }}
+    >
       <fieldset className="col-span-2 flex flex-col gap-1">
         <label
           htmlFor="first-name"
@@ -25,9 +41,14 @@ export default function UpdateProfileForm({
         <input
           type="text"
           id="first-name"
-          value={firstName}
-          readOnly
-          className={`${font} font-light text-stone-200 bg-transparent`}
+          value={userData.firstName}
+          onChange={(e) =>
+            setUserData({ ...userData, firstName: e.target.value })
+          }
+          readOnly={!isEditing}
+          className={`${font} font-light text-stone-200 ${
+            isEditing ? "bg-light-300" : "bg-transparent"
+          }`}
         />
       </fieldset>
       <fieldset className="col-span-2 flex flex-col gap-1">
@@ -40,9 +61,14 @@ export default function UpdateProfileForm({
         <input
           type="text"
           id="last-name"
-          value={lastName}
-          readOnly
-          className={`${font} font-light text-stone-200 bg-transparent`}
+          value={userData.lastName}
+          readOnly={!isEditing}
+          onChange={(e) =>
+            setUserData({ ...userData, lastName: e.target.value })
+          }
+          className={`${font} font-light text-stone-200 ${
+            isEditing ? "bg-light-300" : "bg-transparent"
+          }`}
         />
       </fieldset>
       <fieldset className="col-span-2 flex flex-col gap-1">
@@ -55,9 +81,12 @@ export default function UpdateProfileForm({
         <input
           type="text"
           id="mobile-number"
-          value={phone}
-          readOnly
-          className={`${font} font-light text-stone-200 bg-transparent`}
+          value={userData.phone}
+          onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
+          readOnly={!isEditing}
+          className={`${font} font-light text-stone-200 ${
+            isEditing ? "bg-light-300" : "bg-transparent"
+          }`}
         />
       </fieldset>
       <fieldset className="col-span-2 flex flex-col gap-1">
@@ -70,9 +99,12 @@ export default function UpdateProfileForm({
         <input
           type="text"
           id="email-address"
-          value={email}
-          readOnly
-          className={`${font} font-light text-stone-200 bg-transparent`}
+          value={userData.email}
+          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+          readOnly={!isEditing}
+          className={`${font} font-light text-stone-200 ${
+            isEditing ? "bg-light-300" : "bg-transparent"
+          }`}
         />
       </fieldset>
       <fieldset className="col-span-2 flex flex-col gap-1">
@@ -243,7 +275,8 @@ export default function UpdateProfileForm({
       <div className="text-center max-md:col-span-2">
         <button
           type="submit"
-          className={`${font} text-base py-4 px-5 rounded bg-stone-100 text-light-300`}
+          className={`${font} text-base py-4 px-5 rounded bg-stone-100 text-light-300 disabled:opacity-50 disabled:cursor-not-allowed`}
+          disabled={!isEditing}
         >
           Confirm
         </button>

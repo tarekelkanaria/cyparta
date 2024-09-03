@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { SlBriefcase } from "react-icons/sl";
 import { MdOutlineMail } from "react-icons/md";
-import EditIcon from "assets/edit.svg";
 import { lexendClass } from "styles/fonts";
+import EditBtn from "./EditBtn";
 
 export default function Cover({
   name,
@@ -47,13 +47,8 @@ export default function Cover({
             </p>
           </div>
         </div>
-        <button
-          type="button"
-          className={`${lexendClass} flex items-center justify-center gap-0.5 p-4 rounded-xl bg-stone-100 text-light-300`}
-        >
-          <Image src={EditIcon} alt="edit" />
-          Edit Profile
-        </button>
+
+        <EditBtn font={lexendClass} />
       </article>
     </section>
   );

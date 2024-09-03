@@ -17,9 +17,7 @@ export default function SubmitLoginBtn({
       <button
         type="submit"
         disabled={
-          !isDirty ||
-          errors.email !== undefined ||
-          errors.password !== undefined
+          !isDirty || !!errors.email?.message || !!errors.password?.message
         }
         className="w-[82%] bg-slate-900 p-5 text-center text-light-300 text-lg font-bold rounded-xl mx-auto disabled:opacity-50 disabled:cursor-not-allowed"
       >
