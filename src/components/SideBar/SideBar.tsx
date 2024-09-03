@@ -9,10 +9,9 @@ import { GoChecklist } from "react-icons/go";
 import { IoIosArrowForward } from "react-icons/io";
 import { MdOutlinePayment } from "react-icons/md";
 import EmployeesList from "./EmployeesList";
-import { IProfileData } from "forms";
 import MenuToggle from "./MenuToggle";
 
-export default function SideBar({ user }: { user: IProfileData | undefined }) {
+export default function SideBar({ user }: { user?: string }) {
   const links = [
     "Login",
     "Dashboard",
@@ -29,7 +28,7 @@ export default function SideBar({ user }: { user: IProfileData | undefined }) {
           priority
           className="mx-auto mb-7 hidden xl:block"
         />
-        <MenuToggle links={links} font={lexendClass} id={user?.id} />
+        <MenuToggle links={links} font={lexendClass} id={user} />
         <nav className="max-md:hidden flex flex-col items-center space-y-10 my-4 md:px-0.5">
           {!user ? (
             <Link href="/" className="flex items-center gap-x-4">

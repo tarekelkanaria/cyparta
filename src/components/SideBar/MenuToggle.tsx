@@ -10,7 +10,7 @@ export default function MenuToggle({
   links,
   id,
 }: {
-  id?: number;
+  id?: string;
   font: string;
   links: string[];
 }) {
@@ -42,7 +42,7 @@ export default function MenuToggle({
             return (
               <li key={link} className="p-5 hover:bg-slate-750">
                 <Link
-                  href="#"
+                  href={`/${link.toLowerCase().split(" ").join("")}`}
                   className={`${font} text-sm font-light text-center text-stone-100 mb-2 p-2`}
                 >
                   {link}
