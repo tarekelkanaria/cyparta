@@ -16,10 +16,14 @@ export const loginSchema = yup.object({
 
 export const validateUser = async (data: FormData) => {
   try {
-    await loginSchema.validate({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    await loginSchema.validate(
+      {
+        email: data.get("email")?.toString() || "",
+        password: data.get("password")?.toString() || "",
+      },
+      { abortEarly: false }
+    );
+
     return null;
   } catch (error) {
     if (error instanceof yup.ValidationError) {

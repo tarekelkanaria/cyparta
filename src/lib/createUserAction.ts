@@ -9,8 +9,7 @@ export async function createUserAction(_prevState: any, formData: FormData) {
   const errors = await validateUser(formData);
 
   if (errors) {
-    if (errors.email) return { message: errors.email };
-    if (errors.password) return { message: errors.password };
+    return { message: Object.values(errors).join(" ") };
   }
 
   const res = await fetch(loginAPIUrl, {
