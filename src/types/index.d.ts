@@ -3,6 +3,14 @@ declare module "forms" {
     email: string;
     password: string;
   };
+
+  type IUpdateFormValues = {
+    firstName: string;
+    lastName: string;
+    phone: string;
+    email: string;
+  };
+
   type IProfileData = {
     id: number;
     name: string;

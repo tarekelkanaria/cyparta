@@ -1,4 +1,4 @@
-import Cover from "./Cover";
+import Cover from "./Cover/Cover";
 import NavBar from "./NavBar";
 import TopBar from "./TopBar";
 import AccountData from "./AccountData/AccountData";
@@ -11,18 +11,16 @@ export default function Account({ profile }: { profile: IProfileData }) {
       <TopBar image={profile.image} />
       <main>
         <NavBar />
-        <EditingProvider>
-          <Cover
-            image={profile.cover}
-            name={profile.name}
-            email={profile.email}
-          />
-          <AccountData
-            firstName={profile.first_name}
-            lastName={profile.last_name}
-            phone={profile.phone}
-            email={profile.email}
-          />
+        <EditingProvider
+          userData={{
+            firstName: profile.first_name,
+            lastName: profile.last_name,
+            email: profile.email,
+            phone: profile.phone,
+          }}
+        >
+          <Cover image={profile.cover} />
+          <AccountData />
         </EditingProvider>
       </main>
     </>

@@ -1,28 +1,12 @@
 import { lexendClass } from "styles/fonts";
 import Tabs from "./Tabs";
-import UpdateProfileForm from "./UpdateProfileForm";
+import UpdateProfileForm from "./UpdateProfile/UpdateProfileForm";
 
-export default function AccountData({
-  firstName,
-  lastName,
-  phone,
-  email,
-}: {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
-}) {
+export default function AccountData() {
   return (
     <section>
       <Tabs />
-      <UpdateProfileForm
-        font={lexendClass}
-        firstName={firstName}
-        lastName={lastName}
-        phone={phone}
-        email={email}
-      />
+      <UpdateProfileForm font={lexendClass} />
     </section>
   );
 }

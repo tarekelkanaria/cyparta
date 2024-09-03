@@ -1,34 +1,41 @@
 "use client";
 
-import { useState } from "react";
 import { useIsEditing } from "src/providers/EditingProvider";
+import { useFormState } from "react-dom";
+import updateUserAction from "src/lib/updateUser";
+import ConfirmBtn from "./ConfirmBtn";
+import { toast } from "sonner";
 
-export default function UpdateProfileForm({
-  font,
-  firstName,
-  lastName,
-  phone,
-  email,
-}: {
-  font: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
-}) {
-  const { isEditing, toggleEditing } = useIsEditing();
-  const [userData, setUserData] = useState({
-    firstName,
-    lastName,
-    phone,
-    email,
-  });
+const initialState = {
+  message: "",
+  status: "initial",
+};
+
+export default function UpdateProfileForm({ font }: { font: string }) {
+  const { userData, isEditing, toggleEditing, setUserData } = useIsEditing();
+  const [state, formAction] = useFormState(updateUserAction, initialState);
+  if (state?.message && state.status === "error") {
+    toast.error(state.message, {
+      duration: 3000,
+      classNames: {
+        toast: font,
+      },
+    });
+  }
+  if (state.message && state.status === "success") {
+    toast.success(state.message, {
+      duration: 3000,
+      classNames: {
+        toast: font,
+      },
+    });
+  }
   return (
     <form
       className="grid grid-cols-2 md:grid-cols-4 gap-y-2 mb-8"
-      onSubmit={(e) => {
-        e.preventDefault();
+      action={(e) => {
         toggleEditing();
+        formAction(e);
       }}
     >
       <fieldset className="col-span-2 flex flex-col gap-1">
@@ -41,6 +48,7 @@ export default function UpdateProfileForm({
         <input
           type="text"
           id="first-name"
+          name="firstName"
           value={userData.firstName}
           onChange={(e) =>
             setUserData({ ...userData, firstName: e.target.value })
@@ -61,6 +69,7 @@ export default function UpdateProfileForm({
         <input
           type="text"
           id="last-name"
+          name="lastName"
           value={userData.lastName}
           readOnly={!isEditing}
           onChange={(e) =>
@@ -81,6 +90,7 @@ export default function UpdateProfileForm({
         <input
           type="text"
           id="mobile-number"
+          name="phone"
           value={userData.phone}
           onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
           readOnly={!isEditing}
@@ -99,6 +109,7 @@ export default function UpdateProfileForm({
         <input
           type="text"
           id="email-address"
+          name="email"
           value={userData.email}
           onChange={(e) => setUserData({ ...userData, email: e.target.value })}
           readOnly={!isEditing}
@@ -272,15 +283,7 @@ export default function UpdateProfileForm({
           className={`${font} font-light text-stone-200 bg-transparent`}
         />
       </fieldset>
-      <div className="text-center max-md:col-span-2">
-        <button
-          type="submit"
-          className={`${font} text-base py-4 px-5 rounded bg-stone-100 text-light-300 disabled:opacity-50 disabled:cursor-not-allowed`}
-          disabled={!isEditing}
-        >
-          Confirm
-        </button>
-      </div>
+      <ConfirmBtn isEditing={isEditing} font={font} />
     </form>
   );
 }

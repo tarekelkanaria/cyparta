@@ -6,7 +6,7 @@ import useShowPassword from "hooks/useShowPassword";
 import { MdOutlineVisibility } from "react-icons/md";
 import { MdOutlineVisibilityOff } from "react-icons/md";
 import { ILoginFormValues } from "forms";
-import { loginSchema } from "src/utils/LoginValidation";
+import { loginSchema } from "src/utils/loginValidation";
 import { createUserAction } from "src/lib/createUserAction";
 import SubmitLoginBtn from "./SubmitLoginBtn";
 import { useFormState } from "react-dom";
