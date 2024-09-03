@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { validateUser } from "src/utils/loginValidation";
+import { validateUser } from "src/utils/loginValidations";
 import { cookies } from "next/headers";
 
 export async function createUserAction(_prevState: any, formData: FormData) {
